@@ -57,7 +57,7 @@ public class Main {
             driver.findElement(By.name("PASSWORD")).sendKeys(prop.getProperty("ppm.password"), Keys.ENTER);
             driver.findElement(By.linkText("Sign Out"));
         } catch (Exception e) {
-            LOGGER.error("Login to PPM");
+            LOGGER.error(String.format("Login to PPM error: %s", e.getCause()));
             return;
         }
         String cookies = getCookies();
@@ -80,10 +80,10 @@ public class Main {
                 LOGGER.info(String.format("%s, %s", file, url));
                 i++;
             } catch (IOException e) {
-                LOGGER.entry(String.format("%s, %s    :error: %s", file, url, e.getCause()));
+                LOGGER.error(String.format("%s, %s    :error: %s", file, url, e.getCause()));
             }
         }
-        System.out.println("Download files count: " + i);
+        System.out.println("Downloaded files count: " + i);
         rs.close();
         stmt.close();
         conn.close();
